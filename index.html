@@ -1,0 +1,128 @@
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portofolio SMA hakiman</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: url('begronp2.png') no-repeat center center fixed;
+      background-size: cover;
+      font-family: sans-serif;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .slider {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      gap: 16px;
+      padding: 40px;
+      height: 100vh;
+      align-items: center;
+      -webkit-overflow-scrolling: touch;
+      position: relative;
+    }
+
+    .slide-container {
+      scroll-snap-align: center;
+      flex-shrink: 0;
+      width: 90vw;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .slider img {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: contain;
+      border-radius: 16px;
+      background: #fff;
+      transition: transform 0.3s ease;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    }
+
+    .slider img:active {
+      transform: scale(1.08);
+    }
+
+    .caption {
+      color: white;
+      font-size: 14px;
+      margin-top: 8px;
+      text-shadow: 0 0 5px black;
+    }
+
+    .dots {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: white;
+      opacity: 0.5;
+      transition: opacity 0.3s;
+    }
+
+    .dot.active {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="slider" id="slider">
+    <div class="slide-container"><img src="p1.png" alt="Slide 1" /><div class="caption">Page 1</div></div>
+    <div class="slide-container"><img src="p2.png" alt="Slide 2" /><div class="caption">Page 2</div></div>
+    <div class="slide-container"><img src="p3.png" alt="Slide 3" /><div class="caption">Page 3</div></div>
+    <div class="slide-container"><img src="p4.png" alt="Slide 4" /><div class="caption">Page 4</div></div>
+    <div class="slide-container"><img src="p5.png" alt="Slide 5" /><div class="caption">Page 5</div></div>
+    <div class="slide-container"><img src="p6.png" alt="Slide 6" /><div class="caption">Page 6</div></div>
+    <div class="slide-container"><img src="p8.png" alt="Slide 7" /><div class="caption">Page 7</div></div>
+    <div class="slide-container"><img src="p10.png" alt="Slide 8" /><div class="caption">Page 8</div></div>
+    <div class="slide-container"><img src="p9.png" alt="Slide 9" /><div class="caption">Page 9</div></div>
+    <div class="slide-container"><img src="p11.png" alt="Slide 10" /><div class="caption">Page 10</div></div>
+    <div class="slide-container"><img src="p12.png" alt="Slide 11" /><div class="caption">Page 11</div></div>
+    <div class="slide-container"><img src="p13.png" alt="Slide 12" /><div class="caption">Page 12</div></div>
+  </div>
+
+  <div class="dots" id="dots"></div>
+
+  <script>
+    const slider = document.getElementById('slider');
+    const slides = slider.querySelectorAll('.slide-container');
+    const dotsContainer = document.getElementById('dots');
+
+    slides.forEach((_, index) => {
+      const dot = document.createElement('div');
+      dot.classList.add('dot');
+      if (index === 0) dot.classList.add('active');
+      dotsContainer.appendChild(dot);
+    });
+
+    const dots = dotsContainer.querySelectorAll('.dot');
+
+    slider.addEventListener('scroll', () => {
+      const scrollLeft = slider.scrollLeft;
+      const slideWidth = slides[0].offsetWidth + 16;
+      const index = Math.round(scrollLeft / slideWidth);
+
+      dots.forEach(dot => dot.classList.remove('active'));
+      if (dots[index]) dots[index].classList.add('active');
+    });
+  </script>
+</body>
+</html>
