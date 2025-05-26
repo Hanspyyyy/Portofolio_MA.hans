@@ -18,7 +18,7 @@
       overflow: hidden;
     }
 
-    /* Loading Screen */
+    /* Loading kecil & stylish */
     #loading-screen {
       position: fixed;
       top: 0;
@@ -29,12 +29,37 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      flex-direction: column;
       z-index: 9999;
+      color: white;
+      font-family: sans-serif;
     }
 
-    #loading-screen img {
-      width: 150px;
-      height: auto;
+    .progress-ring {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: 6px solid rgba(255, 255, 255, 0.1);
+      border-top: 6px solid white;
+      animation: spin 1s linear infinite;
+      margin-bottom: 10px;
+    }
+
+    #loading-text {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    .loading-subtext {
+      font-size: 14px;
+      opacity: 0.8;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
     }
 
     .slider {
@@ -104,12 +129,17 @@
 </head>
 <body>
 
-  <!-- Loading Screen -->
+  <!-- Loading -->
   <div id="loading-screen">
-    <img src="loading1.gif" alt="Loading..." />
+    <div class="progress-ring"></div>
+    <div id="loading-text">0%</div>
+    <div class="loading-subtext">sabar ya</div>
+    <div class="loading-subtext">aa lagi proses</div>
   </div>
 
+  <!-- Slider -->
   <div class="slider" id="slider" style="display: none;">
+    <!-- Isi gambar tetap seperti sebelumnya -->
     <div class="slide-container"><img src="1p.png" alt="Slide 1" /><div class="caption">Page 1</div></div>
     <div class="slide-container"><img src="2p.png" alt="Slide 2" /><div class="caption">Page 2</div></div>
     <div class="slide-container"><img src="3p.png" alt="Slide 3" /><div class="caption">Page 3</div></div>
@@ -132,16 +162,24 @@
   <div class="dots" id="dots"></div>
 
   <script>
-    window.onload = function () {
-      const loading = document.getElementById("loading-screen");
-      const slider = document.getElementById("slider");
+    // Loading animation
+    let percent = 0;
+    const loadingText = document.getElementById("loading-text");
+    const loadingScreen = document.getElementById("loading-screen");
+    const slider = document.getElementById("slider");
 
-      setTimeout(() => {
-        loading.style.display = "none";
+    const interval = setInterval(() => {
+      percent++;
+      loadingText.textContent = percent + "%";
+
+      if (percent >= 100) {
+        clearInterval(interval);
+        loadingScreen.style.display = "none";
         slider.style.display = "flex";
-      }, 2000); // Delay 2 detik, bisa kamu ubah kalau mau
-    };
+      }
+    }, 20);
 
+    // Dot logic
     const sliderEl = document.getElementById('slider');
     const slides = sliderEl.querySelectorAll('.slide-container');
     const dotsContainer = document.getElementById('dots');
@@ -165,4 +203,4 @@
     });
   </script>
 </body>
-</html>
+  </html>
